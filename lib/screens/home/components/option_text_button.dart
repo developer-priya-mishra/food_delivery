@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CustomTextButton extends StatelessWidget {
+class OptionTextButton extends StatelessWidget {
   final String label;
   final PageController pageController;
   final int pageIndex;
   final int itemIndex;
 
-  const CustomTextButton({
+  const OptionTextButton({
     super.key,
     required this.label,
     required this.pageController,

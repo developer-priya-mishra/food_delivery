@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../components/food_info_card.dart';
-import 'components/customtextbutton.dart';
+import '../history.dart';
+import '../cart.dart';
+import '../profile.dart';
+import 'components/option_text_button.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -129,14 +132,6 @@ class _HomeScreenState extends State<HomeScreen> {
     },
   ];
 
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   void dispose() {
     pageController.dispose();
@@ -155,7 +150,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const CartScreen(),
+                ),
+              );
+            },
             icon: SvgPicture.asset('assets/svgs/cart.svg'),
           ),
         ],
@@ -200,12 +202,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 35.0),
+          const SizedBox(height: 30.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Row(
               children: deligates.map((item) {
-                return CustomTextButton(
+                return OptionTextButton(
                   label: item,
                   pageController: pageController,
                   pageIndex: pageIndex,
@@ -214,22 +216,25 @@ class _HomeScreenState extends State<HomeScreen> {
               }).toList(),
             ),
           ),
-          const SizedBox(height: 60.0),
-          const Padding(
-            padding: EdgeInsets.only(right: 20.0),
+          const SizedBox(height: 30.0),
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
             child: Align(
-              alignment: Alignment.topRight,
-              child: Text(
-                'see more',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Color(0xFFFA4A0C),
-                  fontFamily: 'SF-Pro-Rounded-Regular',
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'see more',
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    color: Color(0xFFFA4A0C),
+                    fontFamily: 'SF-Pro-Rounded-Regular',
+                  ),
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 20.0),
+          const SizedBox(height: 30.0),
           SizedBox(
             height: 320.0,
             child: PageView(
@@ -291,66 +296,69 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Color(0xFFADADAF),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.home_rounded,
+                size: 30.0,
+                color: const Color(0xFFFA4A0C),
+                shadows: [
+                  Shadow(
+                    color: const Color(0xFFD73800).withOpacity(0.5),
+                    offset: const Offset(0, 6),
+                    blurRadius: 20.0,
+                  ),
+                ],
+              ),
             ),
-            activeIcon: Icon(
-              Icons.home,
-              color: Color(0xFFFA4A0C),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.favorite_outline_rounded,
+                size: 30.0,
+                color: Color(0xFFADADAF),
+              ),
             ),
-            backgroundColor: Color(0xFFF2F2F2),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.monitor_heart_outlined,
-              color: Color(0xFFADADAF),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.person_outline_rounded,
+                size: 30.0,
+                color: Color(0xFFADADAF),
+              ),
             ),
-            activeIcon: Icon(
-              Icons.monitor_heart_outlined,
-              color: Color(0xFFFA4A0C),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HistoryScreen(),
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.history_rounded,
+                size: 30.0,
+                color: Color(0xFFADADAF),
+              ),
             ),
-            label: '',
-            backgroundColor: Color(0xFFF2F2F2),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: Color(0xFFADADAF),
-            ),
-            activeIcon: Icon(
-              Icons.person,
-              color: Color(0xFFFA4A0C),
-            ),
-            label: 'Person',
-            backgroundColor: Color(0xFFF2F2F2),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.history,
-              color: Color(0xFFADADAF),
-            ),
-            activeIcon: Icon(
-              Icons.history,
-              color: Color(0xFFFA4A0C),
-            ),
-            label: 'History',
-            backgroundColor: Color(0xFFF2F2F2),
-          ),
-        ],
-        type: BottomNavigationBarType.shifting,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        iconSize: 40,
-        onTap: _onItemTapped,
-        elevation: 5,
+          ],
+        ),
       ),
     );
   }
