@@ -45,7 +45,7 @@ class CartScreen extends StatelessWidget {
         margin: const EdgeInsets.only(
           left: 20.0,
           right: 20.0,
-          bottom: 40.0,
+          bottom: 20.0,
         ),
         child: TextButton(
           onPressed: () {

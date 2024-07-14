@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../components/food_info_card.dart';
+import '../../constant/data_sets.dart';
 import '../history.dart';
 import '../cart.dart';
 import '../profile.dart';
+import '../search.dart';
 import 'components/option_text_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,120 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController pageController = PageController();
   int pageIndex = 0;
-
-  final List<String> deligates = ['Foods', 'Drinks', 'Snacks', 'Sauces'];
-
-  final List<Map<String, String>> foodOptions = [
-    {
-      "imagePath": 'assets/images/food1.jpg',
-      "label": 'Veggie\ntomato mix',
-      "price": '900',
-    },
-    {
-      "imagePath": 'assets/images/food2.jpg',
-      "label": 'Spicy\nfish sauce',
-      "price": '300',
-    },
-    {
-      "imagePath": 'assets/images/food3.jpg',
-      "label": 'Grilled\nchicken',
-      "price": '1200',
-    },
-    {
-      "imagePath": 'assets/images/food4.jpg',
-      "label": 'Beef\nsteak',
-      "price": '1500',
-    },
-    {
-      "imagePath": 'assets/images/food5.jpg',
-      "label": 'Pasta\ncarbonara',
-      "price": '800',
-    },
-  ];
-
-  final List<Map<String, String>> drinkOptions = [
-    {
-      "imagePath": 'assets/images/drink1.jpg',
-      "label": 'Fresh\norange juice',
-      "price": '500',
-    },
-    {
-      "imagePath": 'assets/images/drink2.jpg',
-      "label": 'Iced\ncoffee',
-      "price": '300',
-    },
-    {
-      "imagePath": 'assets/images/drink3.jpg',
-      "label": 'Green\nsmoothie',
-      "price": '600',
-    },
-    {
-      "imagePath": 'assets/images/drink4.jpg',
-      "label": 'Berry\nmilkshake',
-      "price": '450',
-    },
-    {
-      "imagePath": 'assets/images/drink5.jpg',
-      "label": 'Mint\nlemonade',
-      "price": '550',
-    },
-  ];
-
-  final List<Map<String, String>> snackOptions = [
-    {
-      "imagePath": 'assets/images/snack1.jpg',
-      "label": 'Cheese\nnachos',
-      "price": '250',
-    },
-    {
-      "imagePath": 'assets/images/snack2.jpg',
-      "label": 'Chocolate\nmuffin',
-      "price": '150',
-    },
-    {
-      "imagePath": 'assets/images/snack3.jpg',
-      "label": 'Fruit\nsalad',
-      "price": '200',
-    },
-    {
-      "imagePath": 'assets/images/snack4.jpg',
-      "label": 'Garlic\nbread',
-      "price": '180',
-    },
-    {
-      "imagePath": 'assets/images/snack5.jpg',
-      "label": 'Veggie\nchips',
-      "price": '120',
-    },
-  ];
-
-  final List<Map<String, String>> sauceOptions = [
-    {
-      "imagePath": 'assets/images/sauce1.jpg',
-      "label": 'Tomato\nketchup',
-      "price": '50',
-    },
-    {
-      "imagePath": 'assets/images/sauce2.jpg',
-      "label": 'Spicy\nmustard',
-      "price": '60',
-    },
-    {
-      "imagePath": 'assets/images/sauce3.jpg',
-      "label": 'Garlic\naoli',
-      "price": '70',
-    },
-    {
-      "imagePath": 'assets/images/sauce4.jpg',
-      "label": 'Sweet\nchili',
-      "price": '55',
-    },
-    {
-      "imagePath": 'assets/images/sauce5.jpg',
-      "label": 'Barbecue\nsauce',
-      "price": '65',
-    },
-  ];
 
   @override
   void dispose() {
@@ -175,30 +63,45 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(height: 30.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: TextField(
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30.0),
-                  ),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: const Color(0xFFE7E7E7),
-                hintText: 'Search',
-                prefixIcon: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
+          Container(
+            height: 56.0,
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 20.0),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(30.0),
+              ),
+              color: Color(0xFFE7E7E7),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchScreen(),
+                );
+              },
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20.0,
+                      right: 16.0,
+                    ),
+                    child: SvgPicture.asset(
                       'assets/svgs/search.svg',
                       height: 18.0,
                       width: 18.0,
                     ),
-                  ],
-                ),
+                  ),
+                  const Text(
+                    'Search',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      fontFamily: 'SF-Pro-Rounded-Semibold',
+                      color: Color(0xFF9A9A9D),
+                    ),
+                  )
+                ],
               ),
             ),
           ),
